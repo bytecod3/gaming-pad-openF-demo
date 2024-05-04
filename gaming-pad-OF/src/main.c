@@ -15,6 +15,9 @@
 /* ADC channel for right */
 adc_channel_t left_x_adc_channel =  ADC1_CHANNEL_6; // GPIO 34
 adc_channel_t left_y_adc_channel = ADC1_CHANNEL_7; // GPIO 35
+adc_channel_t right_x_adc_channel =  ADC1_CHANNEL_5; // TODO: GPIO 33
+adc_channel_t right_y_adc_channel = ADC1_CHANNEL_0; // TODO: GPIO 36
+
 
 /* struct to create an instance of a gaming pad */
 typedef struct analog_pad {
@@ -34,6 +37,9 @@ typedef struct analog_pad {
 
     /* get the analog value of the y-axis potentiometer */
     uint32_t (*get_y_val) (struct analog_pad*); 
+
+    /* check if button has been pressed */
+    uint8_t (*button_pressed) (struct analog_pad*);
 
 } AnalogPad;
 
@@ -90,25 +96,48 @@ uint32_t get_y_val (struct analog_pad* self) {
 
 }
 
+/* check if button has been pressed */
+uint8_t button_pressed(struct analog_pad*) {
+    return 10;
+
+}
+
 void app_main() {
 
-    // setup pad instances -  left and right analog sticks
+    // setup pad instances 
+    // set up left pad
     AnalogPad left_pad;
     left_pad.init = initPad;
     left_pad.get_x_val = get_x_val;     
     left_pad.get_y_val = get_y_val; 
+    left_pad.button_pressed = button_pressed;
     left_pad.init(&left_pad, GPIO_LEFT_SWITCH, left_x_adc_channel, left_y_adc_channel);
 
+    // set up right pad
+    AnalogPad right_pad;
+    right_pad.init = initPad;
+    right_pad.get_x_val = get_x_val;     
+    right_pad.get_y_val = get_y_val; 
+    right_pad.button_pressed = button_pressed;
+    right_pad.init(&right_pad, GPIO_LEFT_SWITCH, right_x_adc_channel, right_y_adc_channel);
+
     // variables to hold the x and y analog values 
-    uint32_t left_x_val, left_y_val;
+    uint32_t left_x_val, left_y_val, right_x_val, right_y_val;
 
     while(1) {
 
         // get the analog value of the left pad
         left_x_val = left_pad.get_x_val(&left_pad);
         left_y_val = left_pad.get_y_val(&left_pad);
+        right_x_val = right_pad.get_x_val(&right_pad);
+        right_y_val = right_pad.get_y_val(&right_pad);
 
-        printf("x:%lu, y:%lu \n", (unsigned long) left_x_val, (unsigned long) left_y_val);
+        printf("l-x:%lu, l-y:%lu | r-x:%lu, r-y:%lu \n", 
+            (unsigned long) left_x_val, 
+            (unsigned long) left_y_val, 
+            (unsigned long) right_x_val, 
+            (unsigned long) right_y_val
+            );
         vTaskDelay(5 / portTICK_PERIOD_MS); // minimal task delay to prevent watchdog timer from triggering
     }
     

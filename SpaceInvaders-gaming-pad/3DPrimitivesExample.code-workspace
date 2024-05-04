@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "${workspaceRoot}/../../../../libs/openFrameworks"
+		},
+		{
+			"path": "${workspaceRoot}/../../../../addons"
+		},
+		{
+			"name": "gaming-pad-OF",
+			"path": "../../../../../../projects/gaming-pad-openFrameworks/gaming-pad-OF"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iostream": "cpp"
+		}
+	}
+}
