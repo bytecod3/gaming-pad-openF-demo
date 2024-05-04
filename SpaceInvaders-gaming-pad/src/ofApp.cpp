@@ -11,6 +11,11 @@ void ofApp::setup(){
 	// add player image
 	player_image.load("player_image.png");
 
+	// add enemy image
+	max_enemy_amplitude = 3.0;
+	max_enemy_shoot_interval = 1.5; // shoot after every 1.5 frames
+	enemy_image.load("enemy_image.png");
+
 	// add player bullet image
 	player_bullet_image.load("player_bullet_image.png");
 
@@ -32,8 +37,22 @@ void ofApp::update() {
 		player_1.update();
 		update_bullets();
 
-	} else if(game_state == "end" ) {
+		for (int i = 0; i < enemies.size(); i++){
+			enemies[i].update();
+			if(enemies[i].time_to_shoot() ) {
+				Bullet b;
+				b.setup(false, enemies[i].pos, enemies[i].speed, &enemy_bullet_image);
+				bullets.push_back(b);
+			}
+		}
 
+		// level controller
+		Enemy e;
+		e.setup(max_enemy_amplitude, max_enemy_shoot_interval, &enemy_image);
+		enemies.push_back(e);
+
+	} else if(game_state == "end" ) {
+		
 	} 
 	
 }
@@ -46,6 +65,11 @@ void ofApp::draw() {
 	} else if(game_state == "game" ) {
 		ofBackground(0,0,0); // black background TODO: add a space bg
 		player_1.draw();
+
+		// generate enemies 
+		for (i = 0; i < enemies.size(); i++) {
+			enemies[i].draw();
+		}
 
 		// draw bullets on screen
 		for(i = 0; i < bullets.size(); i++) {

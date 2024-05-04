@@ -32,12 +32,16 @@ public:
 	int score;
 	Player player_1;
 
+	float max_enemy_amplitude;
+	float max_enemy_shoot_interval;
+
 	ofImage player_image;
 	ofImage enemy_image;
 	ofImage player_bullet_image;
 	ofImage enemy_bullet_image;
 
 	vector<Bullet> bullets; // a vector to hold all the bullets
+	vector<Enemy> enemies; // a vector to hold the enemies
 
 	void update_bullets();
 
