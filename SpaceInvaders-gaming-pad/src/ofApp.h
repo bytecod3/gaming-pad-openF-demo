@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "life.h"
 #include "bullet.h"
+#include "level_controller.h"
 
 class ofApp : public ofBaseApp{
 
@@ -31,6 +32,7 @@ public:
 	string game_state;
 	int score;
 	Player player_1;
+	LevelController level_controller;
 
 	float max_enemy_amplitude;
 	float max_enemy_shoot_interval;
@@ -39,10 +41,15 @@ public:
 	ofImage enemy_image;
 	ofImage player_bullet_image;
 	ofImage enemy_bullet_image;
+	ofImage splash_screen;
+	ofImage end_screen;
 
 	vector<Bullet> bullets; // a vector to hold all the bullets
 	vector<Enemy> enemies; // a vector to hold the enemies
 
+	// my functions
 	void update_bullets();
+	void check_bullet_collisions();
+	void draw_score();
 
 };

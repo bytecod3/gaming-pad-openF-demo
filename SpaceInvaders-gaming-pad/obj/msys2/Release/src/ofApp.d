@@ -98,7 +98,8 @@ obj/msys2/Release/src/ofApp.o: \
  D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/player.h \
  D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/enemy.h \
  D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/life.h \
- D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/bullet.h
+ D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/bullet.h \
+ D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/level_controller.h
 D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/ofApp.h:
 D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/libs/openFrameworks/ofMain.h:
 D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/libs/openFrameworks/utils/ofConstants.h:
@@ -198,3 +199,4 @@ D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_rel
 D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/enemy.h:
 D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/life.h:
 D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/bullet.h:
+D:/OPEN-FRAMEWORKS/of_v0.12.0_msys2_mingw64_release/of_v0.12.0_msys2_mingw64_release/apps/myApps/SpaceInvaders-gaming-pad/src/level_controller.h:
