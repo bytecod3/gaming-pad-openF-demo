@@ -28,6 +28,26 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	// set up font
+	ofTrueTypeFont font;
+	ofTrueTypeFont font_small;
+
+	// serial data
+	ofSerial serial;
+	string com_port = "";
+	int baud_rate;
+	float time_last_try_connect = 0; // time we last tried reconnecting to serial device
+	float read_time; // when did we last read
+
+	// currently connected serial devices 
+	vector <ofSerialDeviceInfo> device_list;
+
+	// store received data to split it later 
+	string serial_read_string = "";
+	vector <string> received_serial_messages; 
+	ofBuffer serial_read_buffer;
+	int erase_index;
+
 	// game structure
 	string game_state;
 	int score;

@@ -11,13 +11,11 @@
 /* pin definitions */
 #define GPIO_LEFT_SWITCH    5
 
-
 /* ADC channel for right */
 adc_channel_t left_x_adc_channel =  ADC1_CHANNEL_6; // GPIO 34
 adc_channel_t left_y_adc_channel = ADC1_CHANNEL_7; // GPIO 35
 adc_channel_t right_x_adc_channel =  ADC1_CHANNEL_5; // TODO: GPIO 33
 adc_channel_t right_y_adc_channel = ADC1_CHANNEL_0; // TODO: GPIO 36
-
 
 /* struct to create an instance of a gaming pad */
 typedef struct analog_pad {
@@ -132,7 +130,7 @@ void app_main() {
         right_x_val = right_pad.get_x_val(&right_pad);
         right_y_val = right_pad.get_y_val(&right_pad);
 
-        printf("l-x:%lu, l-y:%lu | r-x:%lu, r-y:%lu \n", 
+        printf("%lu,%lu,%lu,%lu\n", 
             (unsigned long) left_x_val, 
             (unsigned long) left_y_val, 
             (unsigned long) right_x_val, 
