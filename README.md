@@ -4,7 +4,9 @@
 
 I built this project to reinforce my learning on computer graphics and interfaces with external hardware like gaming pads. I happened to have a 'damaged' gaming pad in my junk box. Been building simple openFrameworks projects so interfacing with a hacked gaming pad seemed like a nice project for a start.
 
-[image]
+![start-screen](.\img\start-screen.png)
+
+![game-screen](.\img\game-screen.png)
 
 #### How it works
 
@@ -12,7 +14,27 @@ I built this project to reinforce my learning on computer graphics and interface
 
 This gaming pad utilizes two analog sticks of the pad as the other buttons were pretty damaged. So I reverse engineered the sticks, extracted the connections to X and Y axes and push buttons and glued everything together on a perf-board. 
 
-[image]
+###### Broken gaming pad
+
+![game-screen](.\img\broken.jpg)
+
+
+
+###### Re-constructed gaming pad
+
+The re-contructed gaming pad looks as below: 
+
+![game-screen](.\img\gaming-pad.jpg)
+
+
+
+#### Gaming pad schematic
+
+Most gaming pads feature two analog sticks and some pressure push buttons. The analog sticks are made of two potentiometers that output  voltage values based on their resistance (position). The pressure push buttons are reactive to user-press. The stronger the user pressed the button, the less the resistance, therefore more current passes through that circuitry and it is interpreted appropriately. You can read more about gaming pads electronics here: https://scholar.valpo.edu/cgi/viewcontent.cgi?article=1004&context=stja
+
+The below schematic shows how I interfaced the two analog sticks of the broken pad with an ESP-DEVKIT and utilized its ADC to extract the potentiometer values: 
+
+[image-schematic] 
 
 
 
