@@ -38,6 +38,9 @@ public:
 	int baud_rate;
 	float time_last_try_connect = 0; // time we last tried reconnecting to serial device
 	float read_time; // when did we last read
+	int lx,ly,rx,ry;
+	vector <string> coords; // to hold the splitted lx,ly,rx,ry coordinates
+	int coordinates[4];
 
 	// currently connected serial devices 
 	vector <ofSerialDeviceInfo> device_list;

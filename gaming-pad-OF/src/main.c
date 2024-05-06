@@ -136,7 +136,8 @@ void app_main() {
             (unsigned long) right_x_val, 
             (unsigned long) right_y_val
             );
-        vTaskDelay(5 / portTICK_PERIOD_MS); // minimal task delay to prevent watchdog timer from triggering
+            
+        vTaskDelay(10 / portTICK_PERIOD_MS); // minimal task delay to prevent watchdog timer from triggering
     }
     
 }

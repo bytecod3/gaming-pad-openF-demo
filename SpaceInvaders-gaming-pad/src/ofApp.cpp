@@ -121,18 +121,63 @@ void ofApp::update() {
 
 	}
 
-	// delete out older serial messages
-	if(received_serial_messages.size() > 10) {
-		received_serial_messages.erase(received_serial_messages.begin());
-	}
+	// print last received message 
+	// cout<<received_serial_messages[received_serial_messages.size()-1]<<endl;
 
-	read_time = ofGetElapsedTimef();
+	
+	// // split the received coordinates
+	// int pos = 0; 
+	// while (pos < received_serial_messages[received_serial_messages.size()-1].size()) {
 
+	// 	pos = received_serial_messages[received_serial_messages.size()-1].find(",");
+	// 	// coords.push_back(received_serial_messages[received_serial_messages.size()-1].substr(0, pos));
+	// 	received_serial_messages[received_serial_messages.size()-1].erase(0, pos+1);
+	// }
 
+	// // save the gaming pad coordinate values 
+	// lx = stoi(coords[0]);
+	// ly = stoi(coords[1]);
+	// rx = stoi(coords[2]);
+	// ry = stoi(coords[3]);
+
+	// // clear the coords vector on fill
+	
 	// update game data
 	if(game_state == "start" ) {
 		
 	} else if(game_state == "game" ) {
+
+		int pos = 0;
+		while (pos < received_serial_messages[received_serial_messages.size()-1].size()) {
+
+			pos = received_serial_messages[received_serial_messages.size()-1].find(",");
+			coords.push_back(received_serial_messages[received_serial_messages.size()-1].substr(0, pos));		
+			// cout<<received_serial_messages[received_serial_messages.size()-1].substr(0, pos);
+			received_serial_messages[received_serial_messages.size()-1].erase(0, pos+1);
+
+		}
+
+		// cout<<coords[0]<<","<<coords[1]<<","<<coords[2]<<","<<coords[3]<<","<<endl;
+
+		lx = stoi(coords[0]);
+		ly = stoi(coords[1]);
+		rx = stoi(coords[2]);
+		ry = stoi(coords[3]);
+		cout<<lx<<","<<ly<<","<<rx<<","<<ry<<","<<endl;
+
+		if(coords.size() > 4) {
+			coords.clear();
+		}
+
+		// delete out older serial messages
+		if(received_serial_messages.size() > 10) {
+			received_serial_messages.erase(received_serial_messages.begin());
+		}
+
+		read_time = ofGetElapsedTimef();
+
+
+		// update game graphics
 		player_1.update();
 		update_bullets();
 
@@ -154,6 +199,18 @@ void ofApp::update() {
 
 		}
 
+		// process stick moves
+		// if(rx > 490) {
+		// 	// moving right
+		// 	player_1.is_right_pressed = true;
+		// 	player_1.is_left_pressed = false;
+		// } else if(rx < 480) {
+		// 	// moving left
+		// 	player_1.is_left_pressed = true;
+		// 	player_1.is_right_pressed = false;
+		// }
+
+
 	} else if(game_state == "end" ) {
 
 	} 
@@ -174,32 +231,21 @@ void ofApp::draw() {
 		ofSetColor(0, 255, 0);
 		// print gaming pad coordinates on screen
 		
-		font_small.drawString("Gaming pads detected: "+ofToString(serial.isInitialized()), 50, 50);
+		font_small.drawString("Gaming pads detected: "+ofToString(serial.isInitialized()), 50, 30);
 		string device_string = "[lx, lr, rx, ry]\n";
-		font_small.drawString(device_string, 50, 30);
+		font_small.drawString(device_string, 50, 50);
 
 		ofSetColor(255);
 
 		// ---------------Render gaming pad serial data ------------------
 		float posY = 70;
 
-		char buff[10];
-		font_small.drawString(received_serial_messages[received_serial_messages.size() - 1], 50, posY);
-
-		if(received_serial_messages.size() > 0) {
-			// sprintf(buff, "%lu\n", received_serial_messages.size());
-			// font_small.drawString(buff, 50, posY);
-			// for(int i= (int) received_serial_messages.size()-1; i >= 0; i--) {
-			// 	// if(i == (int) received_serial_messages.size()-1 &&  ((ofGetElapsedTimef() - read_time) < 0.1f)){
-			// 	// 	ofSetColor(255);
-			// 	// }
-
-			// 	// draw the data on screen
-			// 	font_small.drawString(received_serial_messages[i], 50, posY);
-			// 	posY+=20;
-
-			// }
-		}
+		// font_small.drawString(received_serial_messages[received_serial_messages.size()-4], 50, 70);
+		// font_small.drawString(received_serial_messages[received_serial_messages.size()-3], 100, 90);
+		// font_small.drawString(received_serial_messages[received_serial_messages.size()-2], 150, 110);
+		// font_small.drawString(received_serial_messages[received_serial_messages.size()-1], 200, 130);
+		// font_small.drawString("                                          ", 50, 70); // clear the coordinates render
+		font_small.drawString(coords[3], 50, 70);
 
 		// ----------------------------------
 

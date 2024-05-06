@@ -10,7 +10,7 @@ I built this project to reinforce my learning on computer graphics and interface
 
 ##### Gaming pad 
 
-This gaming pad utilizes two analog sticks of the pad as the other buttons were pretty damaged. So I reverse engineered the sticks, extracted the connections to a and y axes and push buttons and glued everything together on a perf-board. 
+This gaming pad utilizes two analog sticks of the pad as the other buttons were pretty damaged. So I reverse engineered the sticks, extracted the connections to X and Y axes and push buttons and glued everything together on a perf-board. 
 
 [image]
 
