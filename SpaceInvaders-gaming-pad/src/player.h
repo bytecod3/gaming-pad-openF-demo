@@ -12,6 +12,7 @@ class Player {
     void update();
     void draw();
     void shoot();
+    int interpolate_speed(int, int, int, int, int);
 
     void calculate_movement();
     bool check_can_shoot();

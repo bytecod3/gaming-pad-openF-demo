@@ -21,7 +21,7 @@ void Player::draw() {
 
 void Player::calculate_movement() {
 
-    // mode player to left inside the window
+    // move player to left inside the window
     if(is_left_pressed && (pos.x > 0 + player_width/2) ) {
         pos.x -= speed; 
     }
@@ -38,4 +38,10 @@ void Player::calculate_movement() {
         pos.y += speed;
     }
 
+}
+
+// perform linear interpolation
+int Player::interpolate_speed(int x, int x1, int y1, int x2, int y2) {
+	int r = y1 + ((x-x1)*(y2-y1)) / (x2 - x1);
+	return r;
 }

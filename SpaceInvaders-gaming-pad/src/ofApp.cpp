@@ -51,10 +51,10 @@ void ofApp::setup(){
 	enemy_bullet_image.load("enemy_bullet_image.png");
 
 	// splash screen
-	splash_screen.load("start-screen.png");
+	splash_screen.load("splash_screen.png");
 
 	// end screen
-	end_screen.load("end_screen.png");
+	// end_screen.load("end_screen.png");
 
 	// set up player
 	player_1.setup(&player_image);
@@ -121,27 +121,7 @@ void ofApp::update() {
 
 	}
 
-	// print last received message 
-	// cout<<received_serial_messages[received_serial_messages.size()-1]<<endl;
 
-	
-	// // split the received coordinates
-	// int pos = 0; 
-	// while (pos < received_serial_messages[received_serial_messages.size()-1].size()) {
-
-	// 	pos = received_serial_messages[received_serial_messages.size()-1].find(",");
-	// 	// coords.push_back(received_serial_messages[received_serial_messages.size()-1].substr(0, pos));
-	// 	received_serial_messages[received_serial_messages.size()-1].erase(0, pos+1);
-	// }
-
-	// // save the gaming pad coordinate values 
-	// lx = stoi(coords[0]);
-	// ly = stoi(coords[1]);
-	// rx = stoi(coords[2]);
-	// ry = stoi(coords[3]);
-
-	// // clear the coords vector on fill
-	
 	// update game data
 	if(game_state == "start" ) {
 		
@@ -154,18 +134,18 @@ void ofApp::update() {
 			coords.push_back(received_serial_messages[received_serial_messages.size()-1].substr(0, pos));		
 			// cout<<received_serial_messages[received_serial_messages.size()-1].substr(0, pos);
 			received_serial_messages[received_serial_messages.size()-1].erase(0, pos+1);
-
 		}
 
-		// cout<<coords[0]<<","<<coords[1]<<","<<coords[2]<<","<<coords[3]<<","<<endl;
+		// cout<<coords[0]<<","<<coords[1]<<","<<coords[2]<<","<<coords[3]<<","<<'\n';
 
 		lx = stoi(coords[0]);
 		ly = stoi(coords[1]);
 		rx = stoi(coords[2]);
 		ry = stoi(coords[3]);
-		cout<<lx<<","<<ly<<","<<rx<<","<<ry<<","<<endl;
+		left_pressed = stoi(coords[4]);
+		cout<<lx<<","<<ly<<","<<rx<<","<<ry<<","<<left_pressed<<'\n';
 
-		if(coords.size() > 4) {
+		if(coords.size() > MAX_COORD_LENGTH) {
 			coords.clear();
 		}
 
@@ -176,8 +156,10 @@ void ofApp::update() {
 
 		read_time = ofGetElapsedTimef();
 
-
 		// update game graphics
+		player_speed = interpolate(rx, rx_min, rx_max, min_player_speed, max_player_speed);
+		cout<<"s:"<<player_speed<<'\n';
+
 		player_1.update();
 		update_bullets();
 
@@ -199,17 +181,30 @@ void ofApp::update() {
 
 		}
 
-		// process stick moves
-		// if(rx > 490) {
-		// 	// moving right
-		// 	player_1.is_right_pressed = true;
-		// 	player_1.is_left_pressed = false;
-		// } else if(rx < 480) {
-		// 	// moving left
-		// 	player_1.is_left_pressed = true;
-		// 	player_1.is_right_pressed = false;
-		// }
+		// if left joystick button pressed, fire a player_bullet
+		// left_pressed is 0 when pressed, 1 when not pressed
+		if(!left_pressed) { 
+			spawn_bullet();
+		}
 
+		
+		if((0 < rx) && (rx < 480)) {
+			// moving left
+			player_1.is_left_pressed = true;
+			player_1.is_right_pressed = false;
+
+			// TODO: calculate speed
+ 
+		} else if((490 < rx) && (rx < 1023)) {
+			// moving right
+			player_1.is_right_pressed = true;
+			player_1.is_left_pressed = false;
+			
+		} else {
+			// player_1.is_right_pressed = false;
+			// player_1.is_left_pressed = false;
+
+		}
 
 	} else if(game_state == "end" ) {
 
@@ -221,12 +216,14 @@ void ofApp::update() {
 void ofApp::draw() {
 
 	// render game graphics
-	int i;
 	ofBackground(0,0,0); 
+	size_t i;
+	
 	if(game_state == "start" ) {
-		splash_screen.draw(0, 0);
+		splash_screen.draw(100, 50);
 
 	} else if(game_state == "game" ) {
+		
 
 		ofSetColor(0, 255, 0);
 		// print gaming pad coordinates on screen
@@ -240,13 +237,12 @@ void ofApp::draw() {
 		// ---------------Render gaming pad serial data ------------------
 		float posY = 70;
 
-		// font_small.drawString(received_serial_messages[received_serial_messages.size()-4], 50, 70);
-		// font_small.drawString(received_serial_messages[received_serial_messages.size()-3], 100, 90);
-		// font_small.drawString(received_serial_messages[received_serial_messages.size()-2], 150, 110);
-		// font_small.drawString(received_serial_messages[received_serial_messages.size()-1], 200, 130);
-		// font_small.drawString("                                          ", 50, 70); // clear the coordinates render
-		font_small.drawString(coords[3], 50, 70);
-
+		font_small.drawString(coords[0], 50 , 70);
+		font_small.drawString(coords[1], 100, 70);
+		font_small.drawString(coords[2], 150, 70);
+		font_small.drawString(coords[3], 200, 70);
+		font_small.drawString(coords[4], 250, 70);
+		
 		// ----------------------------------
 
 		player_1.draw();
@@ -338,7 +334,7 @@ void ofApp::keyPressed(int key) {
 		}
 
 		if (key == ' ') {
-			cout<<"fire\n"<<endl;
+			cout<<"fire"<<'\n';
 			// spawn a bullet
 			Bullet b;
 			b.setup(true, player_1.pos, player_1.speed, &player_bullet_image);
@@ -347,6 +343,14 @@ void ofApp::keyPressed(int key) {
 
 	}
 
+}
+
+void ofApp::spawn_bullet() {
+	cout<<"fire"<<'\n';
+	// spawn a bullet
+	Bullet b;
+	b.setup(true, player_1.pos, player_1.speed, &player_bullet_image);
+	bullets.push_back(b);
 }
 
 //--------------------------------------------------------------
@@ -385,6 +389,12 @@ void ofApp::keyReleased(int key){
 
 	}
 
+}
+
+// perform linear interpolation
+int ofApp::interpolate(int x, int x1, int y1, int x2, int y2) {
+	int r = x2 + ((x-x1)*(y2-x2)) / (y1 - x1);
+	return (int) r;
 }
 
 //--------------------------------------------------------------
