@@ -4,7 +4,7 @@
 
 I built this project to reinforce my learning on computer graphics with C/C++ and writing interfaces with external hardware like gaming pads. I happened to have a 'damaged' gaming pad in my junk box. Been building simple openFrameworks projects so interfacing with a hacked gaming pad seemed like a nice project for a start.
 
-![start-screen](.\img\start-screen.png)
+![start-screen](./img/start-screen.png)
 
 ![game-screen](.\img\game-screen.png)
 
