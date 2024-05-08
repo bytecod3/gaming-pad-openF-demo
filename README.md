@@ -6,7 +6,7 @@ I built this project to reinforce my learning on computer graphics with C/C++ an
 
 ![start-screen](./img/start-screen.png)
 
-![game-screen](.\img\game-screen.png)
+![game-screen](./img/game-screen.png)
 
 #### How it works
 
@@ -16,7 +16,7 @@ This gaming pad utilizes two analog sticks of the pad as the other buttons were 
 
 ###### Broken gaming pad
 
-![game-screen](.\img\broken.jpg)
+![game-screen](./img/broken.jpg)
 
 
 
@@ -24,7 +24,7 @@ This gaming pad utilizes two analog sticks of the pad as the other buttons were 
 
 The re-constructed gaming pad looks as below: 
 
-![game-screen](.\img\gaming-pad.jpg)
+![game-screen](./img/gaming-pad.jpg)
 
 
 
@@ -36,7 +36,7 @@ You can read more about gaming pads electronics here: https://scholar.valpo.edu/
 
 The below schematic shows how I simply interfaced the two analog sticks of the broken pad with an ESP-DEVKIT and utilized its ADC to extract the potentiometer values, and button presses: 
 
-![schematic](.\img\schematic.png)
+![schematic](./img/schematic.png)
 
 
 
